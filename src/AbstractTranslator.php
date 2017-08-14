@@ -4,6 +4,8 @@ namespace Dhii\I18n;
 
 use Dhii\I18n\Exception\I18nExceptionInterface;
 use Dhii\I18n\Exception\TranslationExceptionInterface;
+use Dhii\Util\String\StringableInterface as Stringable;
+use Exception as RootException;
 
 /**
  * Common functionality for translators.
@@ -12,6 +14,17 @@ use Dhii\I18n\Exception\TranslationExceptionInterface;
  */
 abstract class AbstractTranslator
 {
+    /**
+     * Parameter-less constructor.
+     *
+     * Invoke this in actual constructor.
+     *
+     * @since 0.2
+     */
+    protected function _construct()
+    {
+    }
+
     /**
      * Translates a subject.
      *
@@ -30,29 +43,28 @@ abstract class AbstractTranslator
      * Creates a new instance of an internationalization exception.
      *
      * @since 0.1
-     * @see \Exception::__construct()
+     * @see RootException::__construct()
      *
-     * @param string     $message
-     * @param int        $code
-     * @param \Exception $previous
+     * @param string|Stringable $message
+     * @param int               $code
+     * @param RootException     $previous
      *
      * @return I18nExceptionInterface The new exception.
      */
-    abstract protected function _createI18nException($message, $code = 0, \Exception $previous = null);
+    abstract protected function _createI18nException($message, $code = 0, RootException $previous = null);
 
     /**
      * Creates a new instance of a translation exception.
      *
      * @since 0.1
-     * @see \Exception::__construct()
+     * @see RootException::__construct()
      *
-     * @param string              $message
-     * @param int                 $code
-     * @param \Exception          $previous
-     * @param mixed               $subject    The subject which is being translated, if any.
-     * @param TranslatorInterface $translator The translator which is performing the translation, if any.
+     * @param string|Stringable $message
+     * @param int               $code
+     * @param RootException     $previous
+     * @param mixed             $subject  The subject which is being translated, if any.
      *
      * @return TranslationExceptionInterface The new exception.
      */
-    abstract protected function _createTranslationException($message, $code = 0, \Exception $previous = null, $subject = null, TranslatorInterface $translator = null);
+    abstract protected function _createTranslationException($message, $code = 0, RootException $previous = null, $subject = null);
 }

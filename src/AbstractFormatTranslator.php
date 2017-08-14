@@ -6,6 +6,7 @@ use Dhii\Data\ValueAwareInterface as Value;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Dhii\I18n\Exception\TranslationExceptionInterface;
 use Dhii\I18n\Exception\I18nExceptionInterface;
+use Exception as RootException;
 
 /**
  * Common functionality for format string translators.
@@ -43,7 +44,8 @@ abstract class AbstractFormatTranslator extends AbstractStringTranslator
      *
      * @since 0.1
      *
-     * @param array $params The parameter map to interpolate into the string.
+     * @param string|Stringable $string The string to interpolate parameters into.
+     * @param array             $params The parameter map to interpolate into the string.
      * 
      * @throws I18nExceptionInterface If a problem not directly related to translating occurs.
      *
@@ -55,24 +57,22 @@ abstract class AbstractFormatTranslator extends AbstractStringTranslator
      * Creates a new instance of a string translation exception.
      *
      * @since 0.1
-     * @see \Exception::__construct()
+     * @see RootException::__construct()
      *
-     * @param string              $message
-     * @param int                 $code
-     * @param \Exception          $previous
-     * @param mixed               $subject    The subject which is being translated, if any.
-     * @param TranslatorInterface $translator The translator which is performing the translation, if any
-     * @param Value|null          $context    The string context, if any.
-     * @param array|null          $params     The interpolation params, if any.
+     * @param string|Stringable $message
+     * @param int               $code
+     * @param RootException     $previous
+     * @param mixed             $subject  The subject which is being translated, if any.
+     * @param Value|null        $context  The string context, if any.
+     * @param array|null        $params   The interpolation params, if any.
      *
      * @return StringTranslationExceptionInterface The new exception.
      */
     abstract protected function _createFormatTranslationException(
             $message,
             $code = 0,
-            \Exception $previous = null,
+            RootException $previous = null,
             $subject = null,
-            TranslatorInterface $translator = null,
             $context = null,
             $params = null);
 }

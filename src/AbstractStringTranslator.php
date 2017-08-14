@@ -6,6 +6,7 @@ use Dhii\Data\ValueAwareInterface as Value;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Dhii\I18n\Exception\StringTranslationExceptionInterface;
 use Dhii\I18n\Exception\I18nExceptionInterface;
+use Exception as RootException;
 
 /**
  * Common functionality for translators that can translate whole strings.
@@ -53,22 +54,20 @@ abstract class AbstractStringTranslator extends AbstractTranslator
      * Creates a new instance of a string translation exception.
      *
      * @since 0.1
-     * @see \Exception::__construct()
+     * @see RootException::__construct()
      *
-     * @param string              $message
-     * @param int                 $code
-     * @param \Exception          $previous
-     * @param mixed               $subject    The subject which is being translated, if any.
-     * @param TranslatorInterface $translator The translator which is performing the translation, if any
-     * @param Value|null          $context    The string context, if any.
+     * @param string|Stringable $message
+     * @param int               $code
+     * @param RootException     $previous
+     * @param mixed             $subject  The subject which is being translated, if any.
+     * @param Value|null        $context  The string context, if any.
      *
      * @return StringTranslationExceptionInterface The new exception.
      */
     abstract protected function _createStringTranslationException(
             $message,
             $code = 0,
-            \Exception $previous = null,
+            RootException $previous = null,
             $subject = null,
-            TranslatorInterface $translator = null,
             $context = null);
 }
